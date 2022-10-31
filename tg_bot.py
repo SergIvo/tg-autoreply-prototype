@@ -14,6 +14,7 @@ SHEDULE = {
     6: '',
     7: ''}
 
+REPLY = 'Текст ответа'
 
 def is_working_time():
     week_day = datetime.isoweekday(datetime.now())
@@ -30,15 +31,10 @@ def is_working_time():
 
 
 def replier_handler(update):
-    if not is_working_time():
+    if not update['message']['is_outgoing'] and not is_working_time():
         chat_id = update['message']['chat_id']
-        if update['message']['content'].get('text'):
-            message_text = update['message']['content']['text'].get('text')
-        else:
-            message_text = ''
-        reply = 'Занят, отвечу позже.'
-        if message_text and message_text.lower() != reply.lower():
-            tg.send_message(chat_id=chat_id, text=reply)
+
+        tg.send_message(chat_id=chat_id, text=REPLY)
 
 
 if __name__ == '__main__':
