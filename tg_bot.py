@@ -24,10 +24,7 @@ def is_working_time():
     work_start = datetime.strptime(work_start.strip(), '%H:%M').time()
     work_stop = datetime.strptime(work_stop.strip(), '%H:%M').time()
     time_now = datetime.now().time()
-    if work_start <= time_now and work_stop >= time_now:
-        return True
-    else:
-        return False
+    return work_start <= time_now <= work_stop
 
 
 def replier_handler(update):
